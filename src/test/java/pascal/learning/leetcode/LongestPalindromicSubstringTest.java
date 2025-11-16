@@ -14,7 +14,9 @@ class LongestPalindromicSubstringTest {
     static Stream<TestCase> testCases() {
         return Stream.of(
                 new TestCase("Test Case One", "babad", "bab"),
-                new TestCase("Test Case Two", "cbbd", "bb")
+                new TestCase("Test Case Two", "cbbd", "bb"),
+                new TestCase("String with even length is already palindrome", "baab", "baab"),
+                new TestCase("String with odd length is already palindrome", "babab", "babab")
         );
     }
 
@@ -22,6 +24,6 @@ class LongestPalindromicSubstringTest {
     @MethodSource("testCases")
     void testLongestPalindrome(TestCase testCase) {
         String result = longestPalindromicSubstring.longestPalindrome(testCase.input);
-        assertEquals(result, testCase.expected);
+        assertEquals(testCase.expected, result);
     }
 }
