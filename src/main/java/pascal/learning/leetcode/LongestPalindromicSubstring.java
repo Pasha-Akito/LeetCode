@@ -4,24 +4,25 @@ public class LongestPalindromicSubstring {
 
     public String longestPalindrome(String s) {
         int stringLength = s.length();
-        for (int i = stringLength; i > 1; i--) {
-            for (int j = 0; j <= stringLength - i; j++) {
-                String tempS = s.substring(j, i + j);
-                if (isStringPalindrome(tempS))
-                    return tempS;
+        int start = 0;
+        int end = 0;
+
+        for (int i = 0; i < stringLength; i++) {
+            for (int j = 0; j <= 1; j++) {
+                int left = i;
+                int right = i + j;
+                while (left >= 0 && right <= stringLength - 1 && s.charAt(left) == s.charAt(right)) {
+                    left--;
+                    right++;
+                }
+                left++;
+                right--;
+                if (right - left > end - start) {
+                    start = left;
+                    end = right;
+                }
             }
         }
-        return s.substring(0, 1);
+        return s.substring(start, end + 1);
     }
-
-    private boolean isStringPalindrome(String s){
-        int stringLength = s.length();
-        int normaliseString = (stringLength % 2 == 0) ? 0 : 1;
-        int halfStringLength = stringLength/2;
-        String firstHalf = s.substring(0, halfStringLength);
-        String secondHalf = s.substring(halfStringLength + normaliseString, stringLength);
-        StringBuffer secondHalfReversed = new StringBuffer(secondHalf).reverse();
-        return firstHalf.contentEquals(secondHalfReversed);
-    }
-
 }
